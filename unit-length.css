@@ -1,0 +1,29 @@
+/* html{
+    font-size: 32px;
+} */
+
+/* div {
+  font-size: 10em;
+}
+
+div > p {
+  font-size: 0.5em;
+}
+
+#section-02 > h3 {
+  font-size: 2rem;
+} */
+
+/* #section-03 h2 {
+  color: gray;
+} */
+
+#section-04 {
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+}
+
+h5{ 
+    font-size: 3vmax;
+}
