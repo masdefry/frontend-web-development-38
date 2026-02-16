@@ -1,0 +1,23 @@
+/* #navbar > #layer-01 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+}
+
+#navbar > #layer-01 > p {
+  background-color: gray;
+}
+
+#navbar > #layer-01 > p:nth-child(1) {
+  grid-column: 1/9;
+} */
+
+#navbar > #layer-01 {
+  display: flex;
+  justify-content: space-between;
+}
+
+#navbar > #layer-01 > div {
+  display: flex;
+  gap: 10px;
+}
