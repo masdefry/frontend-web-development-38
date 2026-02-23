@@ -1,24 +1,34 @@
-// function HomePage(){
-//   return(
-//     <>
-//       <h1>Home Page</h1>
-//       <h2>Home Page</h2>
-//     </>
-//   )
-// };
+import { useState } from 'react';
+import Navbar from './components/home/Navbar';
+import ProductsSection from './components/home/ProductsSection';
 
-// export default HomePage;
-import Button from './components/Button';
+const products = [
+  {
+    id: 1,
+    name: 'Minyak Sunco 2L',
+    price: 40000,
+    city: 'Kab. Sidoarjo',
+  },
+  {
+    id: 2,
+    name: 'Apel Malang',
+    price: 35000,
+    city: 'Kab. Malang',
+  },
+];
 
-const HomePage = () => {
+function HomePage() {
+  const [totalCarts, setTotalCarts] = useState<number>(0); 
+
+  const onHandleCarts = () => {
+    setTotalCarts(totalCarts + 1)
+  }
   return (
     <>
-      <h1 style={{ backgroundColor: 'black', fontSize: '2em' }}>Home Page</h1>
-      <h2>Home Page</h2>
-      <Button text='Hubungi Kami' width={'100px'} height={'200px'} />
-      <Button text='Kontak WA Kami' width={'50px'} height={'30px'} />
+      {/* <Navbar totalCarts={totalCarts} /> */}
+      <ProductsSection products={products} onHandleCarts={onHandleCarts} />
     </>
   );
-};
+}
 
 export default HomePage;
