@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
 import useTotalCartStore from '../../stores/useTotalCartStore';
 export default function ProductsSection(props: any) {
-  const { addToCart, totalCart } = useTotalCartStore();
+  const { addToCart, totalCart, itemsCart } = useTotalCartStore();
 
   // React Hooks: Use Effect
 
   // Use Effect mirip seperti ComponentDidUpdate: Men-trigger fn useEffect ketika terjadi perubahan props/data
   useEffect(() => {
-    localStorage.setItem('totalCarts', totalCart);
+    localStorage.setItem('totalCarts', JSON.stringify(totalCart));
   }, [totalCart]);
+
+  useEffect(() => {
+    console.log(itemsCart)
+  }, [itemsCart])
 
   return (
     <section className='grid grid-cols-6 px-20 py-10 gap-3'>
@@ -28,7 +32,7 @@ export default function ProductsSection(props: any) {
             <div className='text-xs'>{item?.city}</div>
             <button
               // onClick={() => props?.onHandleCarts()}
-              onClick={() => addToCart()}
+              onClick={() => addToCart(item)}
               className='btn bg-green-700 text-white mt-3 w-full'
             >
               Add to Cart

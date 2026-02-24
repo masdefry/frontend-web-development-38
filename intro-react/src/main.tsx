@@ -9,6 +9,7 @@ import ChallengesPage from './pages/challenges/page.tsx';
 import UseStatePage from './pages/react-hooks/use-state/page.tsx';
 import ProfilePage from './pages/profile/page.tsx';
 import RootLayout from './components/RootLayout.tsx';
+import CartPage from './pages/carts/page.tsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         path: '/profile',
         element: <ProfilePage products='Indomie' price={15000} />,
       },
+      {
+        path: '/carts', 
+        element: <CartPage />
+      }
     ],
   },
 ]);

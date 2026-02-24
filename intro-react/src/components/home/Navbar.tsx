@@ -1,8 +1,9 @@
 import { LuShoppingCart } from 'react-icons/lu';
 import useTotalCartStore from '../../stores/useTotalCartStore';
+import { Link } from 'react-router-dom';
 
 export default function Navbar(props: any) {
-  const {totalCart} = useTotalCartStore()
+  const { totalCart } = useTotalCartStore();
   return (
     <header className='flex items-center justify-between gap-3 bg-gray-100 p-3'>
       <div className='flex items-center gap-3'>
@@ -36,10 +37,12 @@ export default function Navbar(props: any) {
         {/* Right */}
         <div className='relative w-8 h-10 flex items-center'>
           <LuShoppingCart className='text-2xl' />
-          <button className='absolute top-0 right-0 bg-red-500 text-white w-5 h-5 rounded-full flex justify-center items-center text-xs'>
-            {/* {props?.totalCarts} */}
-            {totalCart}
-          </button>
+          <Link to={'/carts'}>
+            <button className='absolute top-0 right-0 bg-red-500 text-white w-5 h-5 rounded-full flex justify-center items-center text-xs'>
+              {/* {props?.totalCarts} */}
+              {totalCart}
+            </button>
+          </Link>
         </div>
         <button className='btn btn-active btn-success'>Login</button>
         <button className='btn btn-active btn-success'>Register</button>
