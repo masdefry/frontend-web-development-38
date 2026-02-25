@@ -22,7 +22,7 @@ export default function ProductsSection(props: any) {
             <div className='h-[200px] overflow-hidden'>
               <img
                 className='w-full h-full object-cover'
-                src='https://allofresh.id/blog/wp-content/uploads/2023/08/merek-minyak-goreng-4.jpg'
+                src={item?.imageurl}
               />
             </div>
             <h3>{item?.name}</h3>

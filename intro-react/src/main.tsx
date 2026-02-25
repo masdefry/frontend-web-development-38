@@ -10,6 +10,7 @@ import UseStatePage from './pages/react-hooks/use-state/page.tsx';
 import ProfilePage from './pages/profile/page.tsx';
 import RootLayout from './components/RootLayout.tsx';
 import CartPage from './pages/carts/page.tsx';
+import RegisterPage from './pages/register/page.tsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: '/carts', 
         element: <CartPage />
+      },
+      {
+        path: '/register', 
+        Component: RegisterPage
       }
     ],
   },

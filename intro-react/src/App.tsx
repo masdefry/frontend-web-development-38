@@ -1,32 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/home/Navbar';
 import ProductsSection from './components/home/ProductsSection';
-
-const products = [
-  {
-    id: 1,
-    name: 'Minyak Sunco 2L',
-    price: 40000,
-    city: 'Kab. Sidoarjo',
-  },
-  {
-    id: 2,
-    name: 'Apel Malang',
-    price: 35000,
-    city: 'Kab. Malang',
-  },
-];
+import Backendless from './lib/backendless';
 
 function HomePage() {
-  const [totalCarts, setTotalCarts] = useState<number>(0); 
+  const [products, setProducts] = useState<any[]>([]);
 
-  const onHandleCarts = () => {
-    setTotalCarts(totalCarts + 1)
-  }
+  const onGetProducts = async () => {
+    try {
+      const response = await Backendless.Data.of('Products').find();
+      
+      setProducts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // ComponentDidMount -> useEffect
+  useEffect(() => {
+    onGetProducts();
+  }, []);
+
   return (
     <>
       {/* <Navbar totalCarts={totalCarts} /> */}
-      <ProductsSection products={products} onHandleCarts={onHandleCarts} />
+      <ProductsSection products={products} />
     </>
   );
 }
