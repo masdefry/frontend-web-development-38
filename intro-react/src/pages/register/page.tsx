@@ -1,12 +1,20 @@
 import { useFormik } from 'formik';
+import { registerUserSchema } from '../../features/register/schemas/registerUserSchema';
+
+type RegisterFormValues = {
+  email: string;
+  name: string;
+  password: string;
+}
 
 export default function RegisterPage() {
-  const formik = useFormik({
+  const formik = useFormik<RegisterFormValues>({
     initialValues: {
       email: '',
       name: '',
       password: '',
     },
+    validationSchema: registerUserSchema,
     onSubmit: (values: any) => {},
   });
 
@@ -24,7 +32,7 @@ export default function RegisterPage() {
             className='input'
             placeholder='Type your email'
           />
-          <p className='label'>Optional</p>
+          <p className='label text-red-500'>{formik?.errors?.email}</p>
         </fieldset>
         <fieldset className='fieldset w-90'>
           <legend className='fieldset-legend'>Password</legend>
@@ -37,7 +45,7 @@ export default function RegisterPage() {
             className='input'
             placeholder='Type your password'
           />
-          <p className='label'>Optional</p>
+          <p className='label'>{formik?.errors?.password}</p>
         </fieldset>
         <fieldset className='fieldset w-90'>
           <legend className='fieldset-legend'>Name</legend>
@@ -50,7 +58,7 @@ export default function RegisterPage() {
             className='input'
             placeholder='Type your name'
           />
-          <p className='label'>Optional</p>
+          <p className='label'>{formik?.errors?.name}</p>
         </fieldset>
         <button className='btn bg-green-700 text-white'>Register</button>
       </form>
