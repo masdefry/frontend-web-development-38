@@ -1,44 +1,37 @@
 import { useFormik } from 'formik';
-import { registerUserSchema } from '../../features/register/schemas/registerUserSchema';
+import { loginUserSchema } from '../../features/login/schemas/loginUserSchema';
 import Backendless from '../../lib/backendless';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-type RegisterFormValues = {
+type LoginFormValues = {
   email: string;
-  name: string;
   password: string;
 };
 
-export default function RegisterPage() {
-  const onHandleRegisterUser = async ({
-    email,
-    name,
-    password,
-  }: RegisterFormValues) => {
+export default function LoginPage() {
+  const onHandleLoginUser = async ({ email, password }: LoginFormValues) => {
     try {
-      await Backendless.UserService.register({ email, name, password });
+      await Backendless.UserService.login(email, password);
 
-      toast.success('Register user successfully');
+      toast.success('Login user successfully');
     } catch (error: any) {
       toast.error(error?.message);
     }
   };
 
-  const formik = useFormik<RegisterFormValues>({
+  const formik = useFormik<LoginFormValues>({
     initialValues: {
       email: '',
-      name: '',
       password: '',
     },
-    validationSchema: registerUserSchema,
-    onSubmit: ({ email, name, password }: RegisterFormValues) => {
-      onHandleRegisterUser({ email, name, password });
+    validationSchema: loginUserSchema,
+    onSubmit: ({ email, password }: LoginFormValues) => {
+      onHandleLoginUser({ email, password });
     },
   });
 
   return (
     <>
-      <ToastContainer />
       <form
         onSubmit={formik?.handleSubmit}
         className='flex flex-col items-center py-10'
@@ -69,20 +62,7 @@ export default function RegisterPage() {
           />
           <p className='label'>{formik?.errors?.password}</p>
         </fieldset>
-        <fieldset className='fieldset w-90'>
-          <legend className='fieldset-legend'>Name</legend>
-          <input
-            id='name'
-            name='name'
-            onChange={formik?.handleChange}
-            value={formik?.values?.name}
-            type='text'
-            className='input'
-            placeholder='Type your name'
-          />
-          <p className='label'>{formik?.errors?.name}</p>
-        </fieldset>
-        <button className='btn bg-green-700 text-white'>Register</button>
+        <button className='btn bg-green-700 text-white'>Login</button>
       </form>
     </>
   );
