@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { loginUserSchema } from '../../features/login/schemas/loginUserSchema';
 import Backendless from '../../lib/backendless';
 import { toast } from 'react-toastify';
+import { useAuthStore } from '../../stores/useAuthStore';
 
 type LoginFormValues = {
   email: string;
@@ -9,9 +10,20 @@ type LoginFormValues = {
 };
 
 export default function LoginPage() {
+  const { setAuth } = useAuthStore();
+
   const onHandleLoginUser = async ({ email, password }: LoginFormValues) => {
     try {
-      await Backendless.UserService.login(email, password);
+      const response: any = await Backendless.UserService.login(
+        email,
+        password,
+      );
+
+      setAuth({
+        email: response?.email,
+        name: response?.name,
+        role: response?.role,
+      });
 
       toast.success('Login user successfully');
     } catch (error: any) {

@@ -1,9 +1,11 @@
 import { LuShoppingCart } from 'react-icons/lu';
 import useTotalCartStore from '../../stores/useTotalCartStore';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '../../stores/useAuthStore';
 
 export default function Navbar(props: any) {
   const { totalCart } = useTotalCartStore();
+  const { user } = useAuthStore();
   return (
     <header className='flex items-center justify-between gap-3 bg-gray-100 p-3'>
       <div className='flex items-center gap-3'>
@@ -44,8 +46,14 @@ export default function Navbar(props: any) {
             </button>
           </Link>
         </div>
-        <button className='btn btn-active btn-success'>Login</button>
-        <button className='btn btn-active btn-success'>Register</button>
+        {user?.email !== ''? (
+          <h2>{user?.email}</h2>
+        ) : (
+          <>
+            <button className='btn btn-active btn-success'>Login</button>
+            <button className='btn btn-active btn-success'>Register</button>
+          </>
+        )}
       </div>
     </header>
   );
