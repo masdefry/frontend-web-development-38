@@ -1,13 +1,23 @@
 import { useFormik } from 'formik';
 import { registerUserSchema } from '../../features/register/schemas/registerUserSchema';
+import Backendless from '../../lib/backendless';
 
 type RegisterFormValues = {
   email: string;
   name: string;
   password: string;
-}
+};
 
 export default function RegisterPage() {
+  const onHandleRegisterUser = async({email, name, password}: RegisterFormValues) => {
+    try {
+        const response = await Backendless.UserService.register({email, name, password})
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   const formik = useFormik<RegisterFormValues>({
     initialValues: {
       email: '',
@@ -15,12 +25,17 @@ export default function RegisterPage() {
       password: '',
     },
     validationSchema: registerUserSchema,
-    onSubmit: (values: any) => {},
+    onSubmit: ({email, name, password}: RegisterFormValues) => {
+      onHandleRegisterUser({email, name, password})
+    },
   });
 
   return (
     <>
-      <form className='flex flex-col items-center py-10'>
+      <form
+        onSubmit={formik?.handleSubmit}
+        className='flex flex-col items-center py-10'
+      >
         <fieldset className='fieldset w-90'>
           <legend className='fieldset-legend'>Email</legend>
           <input
